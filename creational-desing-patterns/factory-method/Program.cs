@@ -1,11 +1,26 @@
-﻿string input = string.Empty;
+﻿CustomDialog dialog;
 
-Console.Write("Enter a vehicle type: ");
-input = Console.ReadLine();
+var osConfig = string.Empty;
 
-// Here the Vehicle factory will get vehicle type object, based on the input.
-IVehicle type = VehicleFactory.GetVehicle(input);
+Console.Write("Choose OS config: ");
+osConfig = Console.ReadLine();
 
-Console.WriteLine(type.GetType()); // Just to make sure we are getting the current type, checking it on runtime.
-Console.WriteLine($"Type is {type.VehicleType()}");
-Console.WriteLine($"Number of Wheel is {type.NumberOfWheels()}");
+void Initialize()
+{
+    if (osConfig?.ToLower() == "windows")
+    {
+        dialog = new WindowsDialog();
+    }
+    else if (osConfig?.ToLower() == "web")
+    {
+        dialog = new WebDialog();
+    }
+    else
+    {
+        throw new Exception("Error! Unknown operating system.");
+    }
+}
+
+Initialize();
+dialog.RenderDialog("Opening dialog...");
+Console.WriteLine(dialog.GetType()); // Verifying one last time that we are getting the correct instance on runtime.
