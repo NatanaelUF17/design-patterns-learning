@@ -4,6 +4,4 @@ public class WebDialog : CustomDialog
     {
         return new HtmlButton();
     }
-
-    
 }
